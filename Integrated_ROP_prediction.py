@@ -103,7 +103,7 @@ SUBHEADER_FONT = ("Verdana", 20, "italic")
 TEXT_FONT = ("Verdana", 15)
 
 # Define a list of options
-menu_options = ["Home", "Clean the data", "Visualization", "Craft an Machine-Learning model","Real-Time Prediction using Continuous approach"]
+menu_options = ["Home", "Clean the data", "Data Visualization", "Craft an Machine-Learning model","Real-Time Prediction using Continuous approach","Help!"]
 
 # Add a radio button to the sidebar to display the options
 selected_option = st.sidebar.radio("Select an option", menu_options)
@@ -131,15 +131,6 @@ if selected_option == "Home":
 
         st.markdown(image_html, unsafe_allow_html=True)
 
-        st.markdown("""
-            <div style='background-color: #F0F8FF; padding: 10px;'>
-                <span style='color: black;'>
-                    The first step in any ML project is to clean and preprocess the data. This data typically includes drilling parameters such as weight on bit, rotary speed, mud flow rate, and bit type, as well as geological information such as lithology, porosity, and permeability.  The data may also include information on drilling performance, such as ROP and drilling time. Once the data is collected, it must be cleaned and processed to remove any outliers, missing values, or other errors.
-                </span>
-            </div>
-        """, unsafe_allow_html=True)
-
-
     with col2:
         img_path = "viz.png"
 
@@ -148,16 +139,7 @@ if selected_option == "Home":
         image_html = f'<img src="data:image/png;base64,{image_base64}" style="height:130px; padding:25px;" alt="Visualization Image">'
 
         st.markdown(image_html, unsafe_allow_html=True)
-        st.write('')
-        st.write('')
-        st.write('')
-        st.markdown("""
-            <div style='background-color: #F0F8FF; padding: 10px;'>
-                <span style='color: black;'>
-                    After cleaning the data, the next step is to visualize it to gain insights and identify patterns. This can be done using various visualization techniques, such as scatter plots, histograms, and box plots. Visualization can help identify correlations between drilling parameters and ROP, as well as identify any outliers or anomalies in the data. It can also help in feature selection, which involves identifying the most important drilling parameters that affect ROP.
-                </span>
-            </div>
-        """, unsafe_allow_html=True)
+
     with col3:
         img_path = "ml.png"
 
@@ -166,17 +148,32 @@ if selected_option == "Home":
         image_html = f'<img src="data:image/png;base64,{image_base64}" style="height:130px; padding:25px;" alt="ML image">'
 
         st.markdown(image_html, unsafe_allow_html=True)
-        st.write('')
-        st.write('')
-        st.write('')
 
-        st.markdown("""
-            <div style='background-color: #F0F8FF; padding: 10px;'>
-                <span style='color: black;'>
-                    The final step is to craft an ML model that can predict ROP based on the selected drilling parameters. This involves choosing an appropriate ML algorithm, such as regression, decision trees, or neural networks, and training it on the cleaned and preprocessed data. The model is then tested and evaluated using validation techniques, such as cross-validation, to ensure that it can accurately predict ROP. The model can then be used to predict ROP in real-time drilling operations, helping to optimize drilling performance and reduce costs.
-                </span>
-            </div>
-        """, unsafe_allow_html=True)
+    st.write('Below you will find a comprehensive introduction for each section.')
+    st.subheader('1) Clean the Data')
+    st.write('The application offers a user-friendly interface that enables the uploading of **CSV** or **Excel*** files for data cleaning. For example, if the user is working with **drilling data** and wants to predict the **Rate of Penetration (ROP)**, they can upload the data to the app, remove irrelevant columns, rename columns, and fill in missing data. After cleaning the data, they can download it for further analysis or modeling. The process is simple, efficient, and empowers users to work with accurate and reliable data.')
+    st.write("The '**Help**' section provides a guide with step-by-step instructions for working with this section.")
+    st.write('')
+    st.write('')
+    st.subheader('2) Visualization')
+    st.write('This is a section of the web application for data visualization that allows users to choose the data source by either **uploading a new CSV file** or **using existing cleaned data** got from the previous section. Users can select the type of graph they want to visualize, such as **line**, **scatter**, **boxplot**, **histplot**, or **heatmap**. The application also allows users to customize the size of the plot and display the graph with a **download button** for further use. The heatmap function can compute the **correlation matrix** and suggest columns that have good correlation with a selected column.')
+    st.write("The '**Help**' section provides a guide with step-by-step instructions for working with this section.")
+    st.write('')
+    st.write('')
+    st.subheader('3) Craft an Machine-Learning model')
+    st.write('Predicting the **Rate of Penetration (ROP)** is an important aspect of drilling operations. Machine Learning (ML) models can be used to predict the ROP based on various input parameters such as Weight on Bit (WOB), Standpipe Pressure (SPP), and Surface Torque (ST). After data cleaning and visualization, the following steps can be taken to predict the ROP using ML:')
+    st.write('- Select a suitable ML model.')
+    st.write('- Train the ML model using the training set.')
+    st.write('- Evaluate the performance of the trained model using the testing set.')
+    st.write('- Adjusting the hyperparameters')
+    st.write('- Predict the ROP for new input values.')
+    st.write("The '**Help**' section provides a guide with step-by-step instructions for working with this section.")
+    st.write('')
+    st.write('')
+    st.subheader('4) Real-Time Prediction using Continuous approach')
+    st.write('The **continuous approach** for predicting the **Rate of Penetration (ROP)** in drilling operations using Machine Learning (ML) involves the development of a model that can predict ROP in real-time as the drilling operation progresses. This approach requires a continuous feed of data from various sensors and instruments that are monitoring the drilling process, such as weight on bit, standpipe pressure, surface torque, and other factors that can influence ROP.')
+    st.write('The model is being updated with **each new depth drilled** or after every iteration, and it predicts the **rate of penetration (ROP)** for the **next section**. The ROP prediction is based on various inputs such as the **drilling parameters**, **geological data**, and **historical ROP data**, which are analyzed using machine learning algorithms. **By continuously updating the model, it can adapt to changing drilling conditions and provide more accurate predictions, helping to optimize drilling operations and improve efficiency**.')
+    st.write("The '**Help**' section provides a guide with step-by-step instructions for working with this section.")
 
 
 
@@ -318,7 +315,7 @@ if selected_option == "Clean the data":
 
 
 
-if selected_option == "Visualization":
+if selected_option == "Data Visualization":
 
     st.title('Data Visualization')
 
@@ -693,10 +690,10 @@ if selected_option == "Craft an Machine-Learning model":
         #         st.write(model)
 
         st.write("Choose data source")
-        data_option = st.radio("Select the model source:", ("upload new ML model","continue with above ML model"))
+        data_option = st.radio("Select the model source:", ("Upload new ML model","Continue with above ML model"))
 
         # Load data based on option selected
-        if data_option == "upload new ML model":
+        if data_option == "Upload new ML model":
             model_file = st.file_uploader("Upload a saved ML model (pkl)", type=["pkl"])
             if model_file is not None:
                 with model_file:
@@ -765,26 +762,6 @@ if selected_option == "Craft an Machine-Learning model":
         st.write("")
         st.write("__________")
 
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button('HELP',use_container_width=True):
-                st.write('**Welcome to the ROP Prediction App!**')
-                st.write('This app helps you predict the **Rate of Penetration (ROP)** using **real-time drilling data**. Here are a few guidelines to use this app:')
-                st.write('1. Upload your **drilling data** in **CSV** format using the file uploader.')
-                st.write('2. Select the **prediction model** from the sidebar.')
-                st.write('3. Select the **Rate of Penetration (ROP)** column that you want to predict.')
-                st.write('4. Select the **input features** that you want to use for the prediction.')
-                st.write('5. Split your data into **training** and **testing** sets.')
-                st.write('6. Adjust the **model parameters** as per your requirements.')
-                st.write('7. Click on the **"Predict"** button to see the **predicted ROP values**.')
-                st.write('Note: This app uses **Random Forest Regression, Gradient Boosting Regression, XGBoost Regression, and Decision Tree Regression,** to predict ROP value.')
-        with col2:
-            # Add a contact us button
-            email_icon = Image.open('email.png')
-            if st.button('Contact Us',use_container_width=True):
-                st.image(email_icon,width=150)
-                st.write('Please email us at <span style="font-size:20px">sahilvoraa@gmail.com</span>', unsafe_allow_html=True)
-
     # Run the app
     if __name__ == '__main__':
         app()
@@ -812,9 +789,11 @@ if selected_option == "Real-Time Prediction using Continuous approach":
             st.dataframe(df,height=220)
         except Exception as e:
             st.write("Error:", e)
-
-        depth_col = st.selectbox('Select the depth column to iterate over', options=df.columns)
-        step = st.number_input('Please specify the step size (in meters) for splitting the data.', min_value=10, value=50, step=10)
+        cold, cole, colf = st.columns([8,1,6])
+        with cold:
+            depth_col = st.selectbox('Select the **depth column** to iterate over', options=df.columns)
+        with colf:
+            step = st.number_input('Please specify the **step size (in meters)** for splitting the data.', min_value=10, value=50, step=10)
         button_clicked = st.checkbox('Make an machine learning model')
 
         if button_clicked:
@@ -856,10 +835,12 @@ if selected_option == "Real-Time Prediction using Continuous approach":
 
             # Select the prediction model
             st.subheader('Selecting Prediction Model and Features')
-            model_name = st.selectbox('Select the prediction model', ['Random Forest Regression', 'Gradient Boosting Regression', 'XGBoost Regression', 'Decision Tree Regression'])
-            
-            ROP = st.selectbox('Select the target column',df_comb[1].columns)
-            features = st.multiselect('Select the features', df_comb[1].drop(ROP, axis=1).columns)
+            model_name = st.selectbox('**Select the prediction model**', ['Random Forest Regression', 'Gradient Boosting Regression', 'XGBoost Regression', 'Decision Tree Regression'])
+            cola, colb, colc = st.columns([8,1,12])
+            with cola:
+                ROP = st.selectbox('**Select the target column**',df_comb[1].columns)
+            with colc:
+                features = st.multiselect('**Select the features**', df_comb[1].drop(ROP, axis=1).columns)
 
             # Set the model parameters based on the selected model
             st.write(f'<h3 style="font-size:16px;">Adjust model parameters for {model_name}</h3>', unsafe_allow_html=True)
@@ -970,7 +951,7 @@ if selected_option == "Real-Time Prediction using Continuous approach":
                     y_pred_train = model.predict(X_train)
                     y_pred_test = model.predict(X_test)
 
-                    col11, col12 = st.columns(2)
+                    col11, col13, col12 = st.columns([6,1,3])
 
                     with col11:
                         st.success('Model updated successfully!')  # display success message after prediction
@@ -1012,6 +993,7 @@ if selected_option == "Real-Time Prediction using Continuous approach":
                         df_result = pd.concat([df_result, df_result_temp], ignore_index=True)
 
                     with col12:
+                        st.subheader('Predicted ROP:')
                         st.markdown(f"<p style='color: blue;'><b>Depth:</b> from <b>{dfs[f'df{i+2}'][depth_col].min()}</b> to <b>{dfs[f'df{i+2}'][depth_col].max()}</b></p>", unsafe_allow_html=True)
 
                         df_ROP_temp = pd.DataFrame(columns=['Predicted ROP', 'Measured Depth m'])
@@ -1026,6 +1008,11 @@ if selected_option == "Real-Time Prediction using Continuous approach":
                         df_ROP = df_ROP.iloc[len(df_ROP)-len(dfs[f'df{i+2}']):].reset_index(drop=True)
 
                         st.dataframe(df_ROP,height = 250)
+                        # Add download button
+                        csv = df_ROP.to_csv(index=False)
+                        b64 = base64.b64encode(csv.encode()).decode()
+                        href = f'<a href="data:file/csv;base64,{b64}" download="Predicted_ROP.csv">Download</a>'
+                        st.markdown(href, unsafe_allow_html=True)
 
                     st.write('---')
                         
@@ -1037,15 +1024,86 @@ if selected_option == "Real-Time Prediction using Continuous approach":
                 st.markdown(href, unsafe_allow_html=True)
 
 
+# Add Help Section
+if selected_option == "Help!":
+    section = st.selectbox('**Select the section**',menu_options[1:-1])
+    if section == 'Clean the data':
+        st.write('')
+        st.write('This section of the web-app helps you clean the **Real-time drilling data**. Here are step by step guidelines to use this app:')
+        st.write('1. First, the user needs to select the **"Clean the data"** option from the sidebar menu in the app.')
+        st.write('2. Next, the user needs to upload their data file by clicking on the **"Upload your data file"** button and selecting the appropriate file type (**csv** or **xlsx**).')
+        st.write('3. Once the file is uploaded, the user can choose to skip the header row by checking the **"Skip header row"** checkbox.')
+        st.write('4. The app displays the uploaded data in a table, along with its shape. The user can check which columns they want to keep by selecting the appropriate checkboxes.')
+        st.write('5. If the user wants to rename any selected columns, they can do so by checking the **"Rename columns"** checkbox and providing new names for the columns in the provided text input fields.')
+        st.write('6. The user can check the number of missing values in each selected column by checking the **"Show number of missing data in each selected columns"** checkbox.')
+        st.write('7. If the user wants to fill or drop NaN values, they can do so by checking the **"Process for missing value Values"** checkbox and selecting a **data filling method** from the dropdown menu.')
+        st.write('8. Once the data cleaning process is completed, the cleaned data will be displayed in a table, along with its new shape. The user can download the cleaned data by clicking on the **"Download Cleaned Data"** button.')
+        st.write('9. Finally, the user can use the cleaned data for further analysis or modeling purposes.')
 
+    if section == "Data Visualization":
+        st.write('')
+        st.write("Here's a step-by-step guide on how to use this section of the web-app")
+        st.write('1. Select "**Data Visualization**" option from the sidebar.')
+        st.write('2. Choose a appropriate data source by selecting either "**Upload new data**" or "**Use existing cleaned data**".')
+        st.write('3. If you selected "Upload new data", upload your **CSV file**.')
+        st.write('4. Once the data is loaded, you can choose to display the data by selecting the "**Display data**" checkbox.')
+        st.write('5. Select the type of graph you want to create from the "**Select the type of graph**" dropdown menu.')
+        st.write('6. Based on the type of graph selected, you may need to choose **X** and **Y axes** or a column to plot.')
+        st.write('7. Choose the **width** and **height** of the plot using the sliders.')
+        st.write('8. Click the "**Display Graph**" checkbox to generate the plot.')
+        st.write('9. If you chose the **heatmap** (correlation matrix) graph type, you can also select the column that contains values for the rate of penetration. The app will suggest other columns with good correlation based on your selection.')
+        st.write('10. you can download the plot by clicking the "**Download Plot**".')
+        st.write('11. Enjoy exploring your data!')
 
+    if section == 'Craft an Machine-Learning model':
+        st.write('')
+        st.write('**Make a Machine Learning model to predict the Rate of Penetration (ROP).**')
+        st.write('This section of the web-app helps you predict the **Rate of Penetration (ROP)** using **Real-time drilling data**. Here are step by step guidelines to use this app:')
+        st.write('1. Upload your **drilling data** in **CSV** format using the file uploader.')
+        st.write('2. Select the **prediction model** from the dropdown menu.')
+        st.write('3. Select the target column (in this case **Rate of Penetration (ROP)**) that you want to predict.')
+        st.write('4. Select the **input features** that you want to use for the prediction.')
+        st.write('5. Split your data into **training** and **testing** sets by selecting the test size.')
+        st.write('6. Adjust the **model parameters** as per your requirements.')
+        st.write('7. Click on the **"Predict"** button to see the **predicted ROP values**.')
+        st.write('Note: This app uses **Random Forest Regression, Gradient Boosting Regression, XGBoost Regression, and Decision Tree Regression,** to predict ROP value.')
+        st.write('**Calculate ROP using created machine learning model:**')
+        st.write('1. The first task is to select the machine learning model source by selecting either "**Upload new ML model**" or "**Continue with above ML model**".')
+        st.write('2. Once the model source is selected, the code will display the chosen model along with its respective hyperparameters.')
+        st.write('3. You are now able to provide the parameter values, which will serve as input features for the machine learning model.')
+        st.write('4. Upon inputting the values for the various parameters, simply press the "**Calculate**" button to obtain the corresponding **Rate of Penetration value**.')
+
+    if section == "Real-Time Prediction using Continuous approach":
+        st.write('')
+        st.write('1. Open the web-app and select the "**Real-Time Prediction using Continuous approach**" option from the sidebar.')
+        st.write('2. Upload your data file in **CSV** format using the "**Upload a file**" button.')
+        st.write('3. Select the "***depth**" column that you want to iterate over from the dropdown list.')
+        st.write('4. Specify the "**step size**" (in meters) for splitting the data into smaller chunks. (We have made the assumption that a fresh set of data will arrive after 15 seconds, which will be utilized to update the model and make predictions for the next segment.)')
+        st.write('5. Click on the "**Make a machine learning model**" checkbox to start building the machine learning model.')
+        st.write('6. Select the **prediction model** from the dropdown list. You can choose from **Random Forest Regression**, **Gradient Boosting Regression**, **XGBoost Regression**, and **Decision Tree Regression**.')
+        st.write('7. Select the **target column** for prediction from the dropdown list.')
+        st.write('8. Select the **features** that you want to use for prediction from the dropdown list.')
+        st.write('9. Adjust the **model parameters** based on the selected model.')
+        st.write('10. Click on the "**Predict**" button to start the prediction process.')
+        st.write('11. The **predicted ROP values** will be displayed in a table along with the Depth values.')
+        st.write('12. You can download the predicted ROP values in CSV format by clicking on the "**Download Predictions**" button.')
+        st.write('')
+
+# Add a contact us button
+
+st.write("")
+st.write("")
+st.write("")
+st.write("")
+st.write("")
+st.write("-------------------")
+
+email_icon = Image.open('email.png')
+if st.button('**Contact Us**',use_container_width=True):
+    st.image(email_icon,width=150)
+    st.write('Please email us at <span style="font-size:20px">sahilvoraa@gmail.com</span>', unsafe_allow_html=True)
 
 # Define footer and text color
-st.write("")
-st.write("")
-st.write("")
-st.write("")
-st.write("")
 st.write("")
 st.write("")
 st.write("")
