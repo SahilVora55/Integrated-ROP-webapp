@@ -16,6 +16,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from xgboost import XGBRegressor
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.neural_network import MLPRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
 
 # Define function for plotting graph.
@@ -477,7 +479,7 @@ if selected_option == "Craft an Machine-Learning model":
 
             # Select the prediction model
             st.subheader('Selecting Prediction Model and Features')
-            model_name = st.selectbox('Select the prediction model', ['Random Forest Regression', 'Gradient Boosting Regression', 'XGBoost Regression', 'Decision Tree Regression'])
+            model_name = st.selectbox('Select the prediction model', ['Random Forest Regression', 'Gradient Boosting Regression', 'XGBoost Regression', 'Decision Tree Regression','K-Nearest Neighbors','Artificial Neural Network'])
 
             col1, col2 = st.columns(2)
 
@@ -563,6 +565,51 @@ if selected_option == "Craft an Machine-Learning model":
                                 'min_samples_split': min_samples_split}
 
                 model = DecisionTreeRegressor(**model_params)
+
+            elif model_name == 'K-Nearest Neighbors':
+                # Create three columns with equal width
+                col1, col2, col3 = st.columns(3)
+
+                # Add sliders to each column
+                with col1:
+                    n_neighbors = st.slider('Number of Neighbors', min_value=1, max_value=50, value=5)
+
+                with col2:
+                    weights = st.selectbox('Weights', options=['uniform', 'distance'])
+
+                with col3:
+                    algorithm = st.selectbox('Algorithm', options=['auto', 'ball_tree', 'kd_tree', 'brute'])
+
+                # Create a dictionary with the slider and selectbox values
+                model_params = {'n_neighbors': n_neighbors,
+                                'weights': weights,
+                                'algorithm': algorithm}
+
+                model = KNeighborsRegressor(**model_params)
+
+
+            elif model_name == 'Artificial Neural Network':
+                # Create three columns with equal width
+                col1, col2, col3 = st.columns(3)
+
+                # Add sliders to each column
+                with col1:
+                    hidden_layer_sizes = st.slider('Hidden Layer Sizes', min_value=10, max_value=1000, value=100, step=10)
+
+                with col2:
+                    activation = st.selectbox('Activation Function', options=['identity', 'logistic', 'tanh', 'relu'])
+
+                with col3:
+                    solver = st.selectbox('Solver', options=['lbfgs', 'sgd', 'adam'])
+
+                # Create a dictionary with the slider and selectbox values
+                model_params = {'hidden_layer_sizes': (hidden_layer_sizes,),
+                                'activation': activation,
+                                'solver': solver}
+
+                # Create the ANN model with a specific max_iter value to increase speed
+                model = MLPRegressor(max_iter=1000, **model_params)
+
     #        else:
     #            # Create two columns with equal width
     #            col1, col2 = st.columns(2)
@@ -773,8 +820,8 @@ if selected_option == "Craft an Machine-Learning model":
 def countdown_timer():
     remaining_time = st.empty()
     #bar = st.progress(0)
-    for i in range(1, 11):
-        remaining_time.markdown(f"<p style='color: green;'>Time remaining for the next batch of data to come: <span style='font-weight: bold;'>{11 - i} second</span></p>", unsafe_allow_html=True)
+    for i in range(1, 2):
+        remaining_time.markdown(f"<p style='color: green;'>Time remaining for the next batch of data to come: <span style='font-weight: bold;'>{16 - i} second</span></p>", unsafe_allow_html=True)
         #bar.progress(int((i / 15) * 100))
         time.sleep(1)
     remaining_time.markdown("<p style='color: green; font-weight: bold;'>We have new data available for model update and prediction.</p>", unsafe_allow_html=True)
@@ -836,7 +883,7 @@ if selected_option == "Real-Time Prediction using Continuous approach":
 
             # Select the prediction model
             st.subheader('Selecting Prediction Model and Features')
-            model_name = st.selectbox('**Select the prediction model**', ['Random Forest Regression', 'Gradient Boosting Regression', 'XGBoost Regression', 'Decision Tree Regression'])
+            model_name = st.selectbox('**Select the prediction model**', ['Random Forest Regression', 'Gradient Boosting Regression', 'XGBoost Regression', 'Decision Tree Regression','K-Nearest Neighbors'])
             cola, colb, colc = st.columns([8,1,12])
             with cola:
                 ROP = st.selectbox('**Select the target column**',df_comb[1].columns)
@@ -918,6 +965,27 @@ if selected_option == "Real-Time Prediction using Continuous approach":
                                 'min_samples_split': min_samples_split}
 
                 model = DecisionTreeRegressor(**model_params)
+
+            elif model_name == 'K-Nearest Neighbors':
+                # Create three columns with equal width
+                col1, col2, col3 = st.columns(3)
+
+                # Add sliders to each column
+                with col1:
+                    n_neighbors = st.slider('Number of Neighbors', min_value=1, max_value=50, value=5)
+
+                with col2:
+                    weights = st.selectbox('Weights', options=['uniform', 'distance'])
+
+                with col3:
+                    algorithm = st.selectbox('Algorithm', options=['auto', 'ball_tree', 'kd_tree', 'brute'])
+
+                # Create a dictionary with the slider and selectbox values
+                model_params = {'n_neighbors': n_neighbors,
+                                'weights': weights,
+                                'algorithm': algorithm}
+
+                model = KNeighborsRegressor(**model_params)
 
             # Select the test size.
             test_size = st.slider('Select Test Size', min_value=0.1, max_value=0.5, value=0.2, step=0.01)
