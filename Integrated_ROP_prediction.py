@@ -5,6 +5,7 @@ import plotly.express as px
 import seaborn as sns
 import base64
 import time
+import os
 import matplotlib.pyplot as plt
 import plotly.express as px
 from io import BytesIO
@@ -117,8 +118,8 @@ if selected_option == "Home":
     header_image = Image.open("header.png")
     st.image(header_image, use_column_width=True)
 
-    st.write('The rate of penetration (ROP), expressed in feet per hour (ft/h), is a critical metric used in the oil and gas industry to evaluate drilling efficiency. ROP refers to the speed at which the drill bit advances into the formation being drilled, and it is influenced by various parameters such as the formation characteristics, drilling parameters, and drilling fluid properties.')
-    st.write('Predicting ROP accurately is essential for optimizing drilling operations, reducing drilling time, and minimizing drilling costs. It can also help in identifying potential drilling hazards, such as bit wear, formation changes, or drilling fluid-related issues.')
+    st.write('The **rate of penetration (ROP)**, expressed in feet per hour (ft/h), is a critical metric used in the oil and gas industry to evaluate drilling efficiency. **ROP refers to the speed at which the drill bit advances into the formation being drilled**, and it is influenced by various parameters such as the **formation characteristics, drilling parameters**, and **drilling fluid properties**.')
+    st.write('Predicting ROP accurately is essential for **optimizing drilling operations, reducing drilling time,** and **minimizing drilling costs**. It can also help in identifying potential drilling hazards, such as **bit wear, formation changes**, or **drilling fluid-related issues**.')
 
     col1, col2, col3 = st.columns(3)
 
@@ -151,7 +152,7 @@ if selected_option == "Home":
 
     st.write('Below you will find a comprehensive introduction for each section.')
     st.subheader('1) Clean the Data')
-    st.write('The application offers a user-friendly interface that enables the uploading of **CSV** or **Excel*** files for data cleaning. For example, if the user is working with **drilling data** and wants to predict the **Rate of Penetration (ROP)**, they can upload the data to the app, remove irrelevant columns, rename columns, and fill in missing data. After cleaning the data, they can download it for further analysis or modeling. The process is simple, efficient, and empowers users to work with accurate and reliable data.')
+    st.write('The application offers a user-friendly interface that enables the uploading of **CSV** or **Excel** files for data cleaning. For example, if the user is working with **drilling data** and wants to predict the **Rate of Penetration (ROP)**, they can upload the data to the app, remove irrelevant columns, rename columns, and fill in missing data. After cleaning the data, they can download it for further analysis or modeling. The process is simple, efficient, and empowers users to work with accurate and reliable data.')
     st.write("The '**Help**' section provides a guide with step-by-step instructions for working with this section.")
     st.write('')
     st.write('')
@@ -772,7 +773,7 @@ if selected_option == "Craft an Machine-Learning model":
 def countdown_timer():
     remaining_time = st.empty()
     #bar = st.progress(0)
-    for i in range(1, 16):
+    for i in range(1, 2):
         remaining_time.markdown(f"<p style='color: green;'>Time remaining for the next batch of data to come: <span style='font-weight: bold;'>{16 - i} second</span></p>", unsafe_allow_html=True)
         #bar.progress(int((i / 15) * 100))
         time.sleep(1)
@@ -951,7 +952,7 @@ if selected_option == "Real-Time Prediction using Continuous approach":
                     y_pred_train = model.predict(X_train)
                     y_pred_test = model.predict(X_test)
 
-                    col11, col13, col12 = st.columns([6,1,3])
+                    col11, col12, col13 = st.columns([6,4,4])
 
                     with col11:
                         st.success('Model updated successfully!')  # display success message after prediction
@@ -1007,12 +1008,38 @@ if selected_option == "Real-Time Prediction using Continuous approach":
                         df_ROP = df_ROP.drop_duplicates(['Measured Depth m']).reset_index(drop=True)
                         df_ROP = df_ROP.iloc[len(df_ROP)-len(dfs[f'df{i+2}']):].reset_index(drop=True)
 
-                        st.dataframe(df_ROP,height = 250)
+                        st.dataframe(df_ROP,height = 350)
                         # Add download button
                         csv = df_ROP.to_csv(index=False)
                         b64 = base64.b64encode(csv.encode()).decode()
                         href = f'<a href="data:file/csv;base64,{b64}" download="Predicted_ROP.csv">Download</a>'
                         st.markdown(href, unsafe_allow_html=True)
+
+                    with col13:
+                        drill_bit_marker = (6, 0, 0)
+                        fig, ax = plt.subplots(figsize=(3, 10))
+                        if i == 0:
+                            ax.plot(dfs[f'df{i+1}'][ROP], dfs[f'df{i+1}'][depth_col], 'r', lw=2)
+                            ax.plot(df_ROP['Predicted ROP'], df_ROP['Measured Depth m'], 'g',ls='--' ,lw=2)
+                            ax.scatter(df_ROP['Predicted ROP'][0], df_ROP['Measured Depth m'][0],color='blue', marker=drill_bit_marker, s=300)
+                            ax.set_title('Predicted ROP',fontsize = 16, fontweight = 'bold', color = 'olive')
+                            ax.set_xlabel('ROP (m/h)', fontsize = 12, fontweight = 'bold', color = 'maroon')
+                            ax.set_ylabel('Depth (m)', fontsize = 12, fontweight = 'bold', color = 'maroon')
+                            ax.invert_yaxis()
+                            ax.grid()
+                            st.pyplot(fig)
+                        else:
+                            ax.plot(dfs[f'df{i}'][ROP], dfs[f'df{i}'][depth_col], 'r', lw=2)
+                            ax.plot(dfs[f'df{i+1}'][ROP], dfs[f'df{i+1}'][depth_col], 'r', lw=2)
+                            ax.plot(df_ROP['Predicted ROP'], df_ROP['Measured Depth m'], 'g',ls='--' ,lw=2)
+                            ax.scatter(df_ROP['Predicted ROP'][0], df_ROP['Measured Depth m'][0],
+                                        color='blue', marker=drill_bit_marker, s=300)
+                            ax.set_title('Predicted ROP',fontsize = 16, fontweight = 'bold', color = 'olive')
+                            ax.set_xlabel('ROP (m/h)', fontsize = 12, fontweight = 'bold', color = 'maroon')
+                            ax.set_ylabel('Depth (m)', fontsize = 12, fontweight = 'bold', color = 'maroon')
+                            ax.invert_yaxis()
+                            ax.grid()
+                            st.pyplot(fig)                           
 
                     st.write('---')
                         
@@ -1026,6 +1053,9 @@ if selected_option == "Real-Time Prediction using Continuous approach":
 
 # Add Help Section
 if selected_option == "Help!":
+    st.header('Welcome to the Rate of Penetration (ROP) prediction web-app.')
+    st.write('')
+    st.write('Kindly choose the relevant section for which you require assistance from the list provided below.')
     section = st.selectbox('**Select the section**',menu_options[1:-1])
     if section == 'Clean the data':
         st.write('')
@@ -1089,8 +1119,27 @@ if selected_option == "Help!":
         st.write('12. You can download the predicted ROP values in CSV format by clicking on the "**Download Predictions**" button.')
         st.write('')
 
-# Add a contact us button
+    st.subheader('Write us!')
+    with st.form(key='contact_form'):
+        name = st.text_input(label='Name')
+        email = st.text_input(label='Email')
+        message = st.text_area(label='Message')
+        submit_button = st.form_submit_button(label='Submit')
 
+    if submit_button:
+        data = {'Name': [name], 'Email': [email], 'Message': [message]}
+        df = pd.DataFrame(data)
+
+        if not os.path.isfile('contact_data.csv'):
+            df.to_csv('contact_data.csv', index=False)
+        else:
+            existing_data = pd.read_csv('contact_data.csv')
+            df.to_csv('contact_data.csv', mode='a', header=False, index=False)
+
+        st.success('Thank you for your message. We will get back to you shortly.')
+
+
+# Add a contact us button
 st.write("")
 st.write("")
 st.write("")
@@ -1111,4 +1160,4 @@ st.write("")
 st.write("")
 st.write("")
 st.write("")
-st.markdown("<h5 style='text-align: center; color: gray'>Created by Sahil Vora</h5>", unsafe_allow_html=True)
+# st.markdown("<h5 style='text-align: center; color: gray'>Created by Sahil Vora</h5>", unsafe_allow_html=True)
