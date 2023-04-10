@@ -820,8 +820,8 @@ if selected_option == "Craft an Machine-Learning model":
 def countdown_timer():
     remaining_time = st.empty()
     #bar = st.progress(0)
-    for i in range(1, 2):
-        remaining_time.markdown(f"<p style='color: green;'>Time remaining for the next batch of data to come: <span style='font-weight: bold;'>{16 - i} second</span></p>", unsafe_allow_html=True)
+    for i in range(1, 11):
+        remaining_time.markdown(f"<p style='color: green;'>Time remaining for the next batch of data to come: <span style='font-weight: bold;'>{11 - i} second</span></p>", unsafe_allow_html=True)
         #bar.progress(int((i / 15) * 100))
         time.sleep(1)
     remaining_time.markdown("<p style='color: green; font-weight: bold;'>We have new data available for model update and prediction.</p>", unsafe_allow_html=True)
