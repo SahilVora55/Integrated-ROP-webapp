@@ -153,32 +153,78 @@ if selected_option == "Home":
         st.markdown(image_html, unsafe_allow_html=True)
 
     st.write('Below you will find a comprehensive introduction for each section.')
-    st.subheader('1) Clean the Data')
-    st.write('The application offers a user-friendly interface that enables the uploading of **CSV** or **Excel** files for data cleaning. For example, if the user is working with **drilling data** and wants to predict the **Rate of Penetration (ROP)**, they can upload the data to the app, remove irrelevant columns, rename columns, and fill in missing data. After cleaning the data, they can download it for further analysis or modeling. The process is simple, efficient, and empowers users to work with accurate and reliable data.')
-    st.write("The '**Help**' section provides a guide with step-by-step instructions for working with this section.")
-    st.write('')
-    st.write('')
-    st.subheader('2) Visualization')
-    st.write('This is a section of the web application for data visualization that allows users to choose the data source by either **uploading a new CSV file** or **using existing cleaned data** got from the previous section. Users can select the type of graph they want to visualize, such as **line**, **scatter**, **boxplot**, **histplot**, or **heatmap**. The application also allows users to customize the size of the plot and display the graph with a **download button** for further use. The heatmap function can compute the **correlation matrix** and suggest columns that have good correlation with a selected column.')
-    st.write("The '**Help**' section provides a guide with step-by-step instructions for working with this section.")
-    st.write('')
-    st.write('')
-    st.subheader('3) Craft an Machine-Learning model')
-    st.write('Predicting the **Rate of Penetration (ROP)** is an important aspect of drilling operations. Machine Learning (ML) models can be used to predict the ROP based on various input parameters such as Weight on Bit (WOB), Standpipe Pressure (SPP), and Surface Torque (ST). After data cleaning and visualization, the following steps can be taken to predict the ROP using ML:')
-    st.write('- Select a suitable ML model.')
-    st.write('- Train the ML model using the training set.')
-    st.write('- Evaluate the performance of the trained model using the testing set.')
-    st.write('- Adjusting the hyperparameters')
-    st.write('- Predict the ROP for new input values.')
-    st.write("The '**Help**' section provides a guide with step-by-step instructions for working with this section.")
-    st.write('')
-    st.write('')
-    st.subheader('4) Real-Time Prediction using Continuous approach')
-    st.write('The **continuous approach** for predicting the **Rate of Penetration (ROP)** in drilling operations using Machine Learning (ML) involves the development of a model that can predict ROP in real-time as the drilling operation progresses. This approach requires a continuous feed of data from various sensors and instruments that are monitoring the drilling process, such as weight on bit, standpipe pressure, surface torque, and other factors that can influence ROP.')
-    st.write('The model is being updated with **each new depth drilled** or after every iteration, and it predicts the **rate of penetration (ROP)** for the **next section**. The ROP prediction is based on various inputs such as the **drilling parameters**, **geological data**, and **historical ROP data**, which are analyzed using machine learning algorithms. **By continuously updating the model, it can adapt to changing drilling conditions and provide more accurate predictions, helping to optimize drilling operations and improve efficiency**.')
-    st.write("The '**Help**' section provides a guide with step-by-step instructions for working with this section.")
 
+    # Set CSS style for the box
+    box_style = (
+            f"background: linear-gradient(to bottom, #E7F2F8, #D4E7F0);"
+            f"border-radius: 10px;"
+            f"padding: 10px;"
+            f"height: 300px;"
+        )
 
+    coly,colz = st.columns(2)
+    with coly:
+        # Section 1: Clean the Data
+        st.write(
+            f'<div style="{box_style}">',
+            '<h3 style="text-align: left; color: black;">1) Clean the Data</h3>',
+            '<p style="text-align: justify; color: black;">The application offers a user-friendly interface that enables the uploading of <strong>CSV</strong> or <strong>Excel</strong> files for data cleaning. For example, if the user is working with <strong>drilling data</strong> and wants to predict the <strong>Rate of Penetration (ROP)</strong>, they can upload the data to the app, remove irrelevant columns, rename columns, and fill in missing data. After cleaning the data, they can download it for further analysis or modeling. The process is simple, efficient, and empowers users to work with accurate and reliable data.</p>',
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
+    st.write('')
+
+    with colz:
+        # Section 2: Visualize the Data
+        st.write(
+            f'<div style="{box_style}">',
+            '<h3 style="text-align: left; color: black;">2) Visualize the Data</h3>',
+            '<p style="text-align: justify; color: black;">After cleaning the data, users can visualize the data using different types of plots, such as <strong>histograms, scatter plots</strong>, and <strong>line plots</strong>. This allows users to gain insights into the data and identify any patterns or trends that may exist. The application provides various visualization options that can be customized to suit the user\'s needs.</p>',
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
+    st.write('')
+
+    # Set CSS style for the box
+    box_style = (
+            f"background: linear-gradient(to bottom, #E7F2F8, #B5D7E7);"
+            f"border-radius: 10px;"
+            f"padding: 10px;"
+            f"height: 600px;"
+        )
+    cols,colt = st.columns(2)
+    with cols:
+        # Section 3: Craft an Machine-Learning model
+        st.write(
+            f'<div style="{box_style}">',
+            '<h3 style="text-align: left; color: black;">3) Craft a Machine-Learning model</h3>',
+            '<p style="text-align: justify; color: black;">Predicting the <strong>Rate of Penetration (ROP)</strong> is an important aspect of drilling operations. Machine Learning (ML) models can be used to predict the ROP based on various input parameters such as Weight on Bit (WOB), Standpipe Pressure (SPP), and Surface Torque (ST). After data cleaning and visualization, the following steps can be taken to predict the ROP using ML:</p>',
+            '<ul style="text-align: left; color: black;">',
+            '<li>Select a suitable ML model.</li>',
+            '<li>Train the ML model using the training set.</li>',
+            '<li>Evaluate the performance of the trained model using the testing set.</li>',
+            '<li>Adjusting the hyperparameters</li>',
+            '<li>Predict the ROP for new input values.</li>',
+            '</ul>',
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
+    with colt:
+        # Section 4: Real-Time Prediction using Continuous approach
+        st.write(
+            f'<div style="{box_style}">',
+            '<h3 style="text-align: left; color: black;">4) Real-Time Prediction using Continuous approach</h3>',
+            '<p style="text-align: justify; color: black;">The <strong>continuous approach</strong> for predicting the <strong>Rate of Penetration (ROP)</strong> in drilling operations using Machine Learning (ML) involves the development of a model that can predict ROP in real-time as the drilling operation progresses. This approach requires a continuous feed of data from various sensors and instruments that are monitoring the drilling process, such as weight on bit, standpipe pressure, surface torque, and other factors that can influence ROP.</p>',
+            '<p style="text-align: justify; color: black;">The model is being updated with <strong>each new depth drilled</strong> or after every iteration, and it predicts the <strong>rate of penetration (ROP)</strong> for the <strong>next section</strong>. The ROP prediction is based on various inputs such as the <strong>drilling parameters</strong>, <strong>geological data</strong>, and <strong>historical ROP data</strong>, which are analyzed using machine learning algorithms. <strong>By continuously updating the model, it can adapt to changing drilling conditions and provide more accurate predictions, helping to optimize drilling operations and improve efficiency</strong>.</p>',
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
+    st.write('')
+    st.write("The '**Help**' section provides a guide with step-by-step instructions for working with each section.")
 
 if selected_option == "Clean the data":
     # Add a title to the app
@@ -1107,7 +1153,7 @@ if selected_option == "Real-Time Prediction using Continuous approach":
                             ax.set_ylabel('Depth (m)', fontsize = 12, fontweight = 'bold', color = 'maroon')
                             ax.invert_yaxis()
                             ax.grid()
-                            st.pyplot(fig)                           
+                            st.pyplot(fig)                       
 
                     st.write('---')
                         
